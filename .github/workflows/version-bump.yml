@@ -99,36 +99,3 @@ jobs:
         run: |
           git tag ${{ steps.bump.outputs.tag }}
           git push origin ${{ steps.bump.outputs.tag }}
-
-  build-image:
-    needs: version-bump
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Pull latest changes
-        run: git pull origin ${{ github.ref_name }}
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Pi Image
-        run: |
-          # Make sure we have the latest VERSION file
-          VERSION=$(cat VERSION)
-          echo "Building with version: $VERSION"
-          
-          # Run the build
-          ./build-docker.sh
-        env:
-          BUILD_VERSION: ${{ needs.version-bump.outputs.version }}
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: pi-image-${{ needs.version-bump.outputs.tag }}
-          path: deploy/*.img
-          retention-days: 30
