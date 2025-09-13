@@ -8,9 +8,7 @@ bridge-utils
 raspi-config
 imagemagick
 vlc
-gpac
 lsof
-ntp
 jq
 libgeos-dev
 libfreetype6-dev
@@ -44,12 +42,12 @@ mosquitto
 mosquitto-clients
 python3-pip
 exfat-fuse
-exfat-utils
+exfatprogs
 e2fsprogs
 ecryptfs-utils
 at
 libfuse-dev
-libwxbase3.0-dev
+libwxgtk3.2-dev
 procmail
 git
 unzip
